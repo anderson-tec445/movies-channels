@@ -54,16 +54,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Reproduz o canal selecionado
-    function playChannel(channel) {
-        mainContent.innerHTML = `
-            <h2>${channel.name}</h2>
-            <video controls autoplay>
-                <source src="${channel.url}" type="application/x-mpegURL">
-                Seu navegador não suporta este vídeo.
-            </video>
-            
-        `;
+   // Reproduz o canal selecionado
+function playChannel(channel) {
+    const videoElement = document.getElementById('movie-player');
+
+    // Limpa o vídeo anterior
+    videoElement.innerHTML = '';
+
+    if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(channel.url); // Configura a URL do stream HLS
+        hls.attachMedia(videoElement); // Conecta o HLS ao elemento de vídeo
+    } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+        // Suporte nativo (caso do Safari e outros navegadores com suporte HLS)
+        videoElement.src = channel.url;
+    } else {
+        alert('Seu navegador não suporta reprodução de vídeos neste formato.');
     }
+}   
 
     // Inicializa o app
     loadIPTVList();
