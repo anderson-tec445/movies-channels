@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const IPTV_URL = 'http://socialtbest.xyz/get.php?username=91851476143&password=26275912976&type=m3u_plus&output=ts'; // URL da sua lista
+    const IPTV_URL = 'https://iptv-org.github.io/iptv/countries/br.m3u'; // URL da sua lista
     const moviesList = document.getElementById('movies-list'); // Menu lateral
     const mainContent = document.querySelector('.main-content'); // Área principal
 
