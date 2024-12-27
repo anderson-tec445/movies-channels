@@ -1,9 +1,10 @@
+// Atualizado scripts.js
 document.addEventListener('DOMContentLoaded', () => {
-    const IPTV_URL = 'https://iptv-org.github.io/iptv/countries/br.m3u'; // URL da sua lista
-    const moviesList = document.getElementById('movies-list'); // Menu lateral
-    const mainContent = document.querySelector('.main-content'); // Área principal
+    const IPTV_URL = 'https://iptv-org.github.io/iptv/countries/br.m3u';
+    const moviesList = document.getElementById('movies-list');
+    const mainContent = document.querySelector('.main-content');
+    const movieTitle = document.getElementById('movie-title');
 
-    // Função para carregar a lista M3U
     async function loadIPTVList() {
         try {
             const response = await fetch(IPTV_URL);
@@ -19,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Função para analisar o conteúdo da lista M3U
     function parseM3U(m3uContent) {
         const channels = [];
         const lines = m3uContent.split('\n');
@@ -33,16 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (line && !line.startsWith('#')) {
                 currentChannel.url = line;
                 channels.push(currentChannel);
-                currentChannel = {}; // Reseta para o próximo canal
+                currentChannel = {};
             }
         });
 
         return channels;
     }
 
-    // Exibe os canais no menu lateral
     function displayChannelsInMenu(channels) {
-        moviesList.innerHTML = ''; // Limpa o menu lateral
+        moviesList.innerHTML = '';
 
         channels.forEach(channel => {
             const channelItem = document.createElement('li');
@@ -53,26 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Reproduz o canal selecionado
-   // Reproduz o canal selecionado
-function playChannel(channel) {
-    const videoElement = document.getElementById('movie-player');
+    function playChannel(channel) {
+        const videoElement = document.getElementById('movie-player');
+        movieTitle.textContent = channel.name; // Atualiza o título
 
-    // Limpa o vídeo anterior
-    videoElement.innerHTML = '';
+        videoElement.innerHTML = '';
 
-    if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(channel.url); // Configura a URL do stream HLS
-        hls.attachMedia(videoElement); // Conecta o HLS ao elemento de vídeo
-    } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
-        // Suporte nativo (caso do Safari e outros navegadores com suporte HLS)
-        videoElement.src = channel.url;
-    } else {
-        alert('Seu navegador não suporta reprodução de vídeos neste formato.');
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(channel.url);
+            hls.attachMedia(videoElement);
+        } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+            videoElement.src = channel.url;
+        } else {
+            alert('Seu navegador não suporta reprodução de vídeos neste formato.');
+        }
     }
-}   
 
-    // Inicializa o app
     loadIPTVList();
 });
