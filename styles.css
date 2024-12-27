@@ -19,6 +19,8 @@ body {
     background: #1e1e1e;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    overflow-y: auto; /* Permite a rolagem vertical */
+    height: 100vh;    /* Garante que ocupe toda a altura da tela */ 
 }
 
 .sidebar h2 {
