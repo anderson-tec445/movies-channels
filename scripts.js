@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const IPTV_URL = 'https://iptv-org.github.io/iptv/countries/br.m3u'; // URL da sua lista
+    const IPTV_URL = 'https://iptv-org.github.io/iptv/categories/movies.m3u'; // URL da sua lista
     const moviesList = document.getElementById('movies-list'); // Menu lateral
     const mainContent = document.querySelector('.main-content'); // Área principal
 
