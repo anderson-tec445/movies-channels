@@ -1,6 +1,6 @@
 // Atualizado scripts.js
 document.addEventListener('DOMContentLoaded', () => {
-    const IPTV_URL = 'https://iptv-org.github.io/iptv/countries/br.m3u';
+    const IPTV_URL = 'https://iptv-org.github.io/iptv/categories/movies.m3u';
     const moviesList = document.getElementById('movies-list');
     const mainContent = document.querySelector('.main-content');
     const movieTitle = document.getElementById('movie-title');
